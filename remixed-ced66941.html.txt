@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واحة التمور: ذهب الصحراء</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cairo:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0604;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        .slide {
+            width: 100%;
+            min-height: 100vh;
+            display: none;
+            padding: 40px 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .slide.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Slide 1: Welcome */
+        .slide-1 {
+            background: linear-gradient(135deg, #2d1810 0%, #6b4423 50%, #d4a574 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-1::before {
+            content: '🌴';
+            position: absolute;
+            font-size: 30rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .welcome-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 60px 20px;
+        }
+        
+        .logo-circle {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .main-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 6rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s ease-in-out infinite;
+            margin-bottom: 30px;
+            text-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .tagline {
+            font-size: 1.8rem;
+            color: #FFD700;
+            font-style: italic;
+            margin-bottom: 50px;
+        }
+        
+        .group-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.2);
+            border: 3px solid #FFD700;
+            color: #FFD700;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* Slide 2: Cultural Value */
+        .slide-2 {
+            background: linear-gradient(135deg, #1a0f0a 0%, #3d2314 100%);
+        }
+        
+        .content-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            padding: 40px;
+        }
+        
+        .section-title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: #FFD700;
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(to left, #FFD700, #FFA500);
+            border-radius: 2px;
+        }
+        
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.05));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 25px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+        }
+        
+        .value-card:hover::before {
+            transform: rotate(180deg);
+        }
+        
+        .value-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .value-label {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .value-text {
+            font-size: 1.2rem;
+            color: #e0d4c0;
+            line-height: 1.8;
+        }
+        
+        /* Slide 3: Target Audience */
+        .slide-3 {
+            background: linear-gradient(to bottom, #2d1810, #1a0f0a);
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 50px;
+            margin-top: 80px;
+        }
+        
+        .audience-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.05));
+            border: 3px solid rgba(255, 215, 0, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .audience-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+            border-color: #FFD700;
+        }
+        
+        .audience-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+        }
+        
+        .audience-title {
+            font-size: 2.2rem;
+            color: #FFD700;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .audience-desc {
+            font-size: 1.3rem;
+            color: #e0d4c0;
+            line-height: 1.8;
+        }
+        
+        /* Slide 4: Catalog Ad */
+        .slide-4 {
+            background: linear-gradient(135deg, #0f0a06 0%, #2d1810 100%);
+        }
+        
+        .catalog-container {
+            max-width: 1300px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 215, 0, 0.05));
+            border: 4px solid #D4AF37;
+            border-radius: 40px;
+            padding: 80px 60px;
+            box-shadow: 0 30px 90px rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+        
+        .catalog-badge {
+            display: inline-block;
+            background: #D4AF37;
+            color: #1a0f0a;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+        
+        .catalog-headline {
+            font-family: 'Cairo', sans-serif;
+            font-size: 4.5rem;
+            color: #FFD700;
+            font-weight: 900;
+            margin-bottom: 40px;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .catalog-body {
+            font-size: 1.5rem;
+            color: #e0d4c0;
+            line-height: 2;
+            margin-bottom: 60px;
+        }
+        
+        .catalog-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .feature-item .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-item .text {
+            font-size: 1.2rem;
+            color: #FFD700;
+            font-weight: 600;
+        }
+        
+        .catalog-cta {
+            font-family: 'Cairo', sans-serif;
+            font-size: 2.5rem;
+            color: #FFD700;
+            text-align: center;
+            font-weight: 700;
+            padding-top: 40px;
+            border-top: 3px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        /* Slide 5: TV Commercial */
+        .slide-5 {
+            background: linear-gradient(135deg, #1a0e00, #3d2314);
+        }
+        
+        .tv-frame {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(255, 215, 0, 0.08));
+            border: 4px solid #D4AF37;
+            border-radius: 30px;
+            padding: 60px;
+            margin-top: 60px;
+            box-shadow: 0 20px 80px rgba(255, 215, 0, 0.2);
+        }
+        
+        .tv-intro {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #e0d4c0;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+        
+        .tv-points {
+            display: grid;
+            gap: 40px;
+        }
+        
+        .tv-point {
+            display: flex;
+            align-items: start;
+            gap: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tv-point:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #FFD700;
+            transform: translateX(-10px);
+        }
+        
+        .tv-point-num {
+            font-size: 3.5rem;
+            color: #FFD700;
+            font-weight: 900;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .tv-point-content h3 {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .tv-point-content p {
+            font-size: 1.3rem;
+            color: #d4c5b0;
+            line-height: 1.8;
+        }
+        
+        /* Slide 6: Benefits */
+        .slide-6 {
+            background: linear-gradient(to bottom, #0f0a06, #2d1810);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+        
+        .benefit-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(212, 175, 55, 0.05));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #FFD700;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+        }
+        
+        .benefit-card .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .benefit-card p {
+            font-size: 1.2rem;
+            color: #e0d4c0;
+            line-height: 1.6;
+        }
+        
+        /* Slide 7: Closing */
+        .slide-7 {
+            background: linear-gradient(135deg, #2d1810 0%, #6b4423 50%, #d4a574 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide-7::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+        }
+        
+        .closing-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 40px;
+        }
+        
+        .thank-you {
+            font-family: 'Cairo', sans-serif;
+            font-size: 7rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+            font-weight: 900;
+            text-shadow: 0 5px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .closing-message {
+            font-size: 1.8rem;
+            color: #fff;
+            line-height: 2;
+            margin-bottom: 60px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .qa-section {
+            background: rgba(255, 215, 0, 0.1);
+            border: 3px solid #FFD700;
+            border-radius: 30px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .qa-text {
+            font-size: 2.5rem;
+            color: #FFD700;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .qa-subtitle {
+            font-size: 1.5rem;
+            color: #e0d4c0;
+        }
+        
+        /* Navigation */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            border-radius: 50px;
+            border: 2px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            border: none;
+            color: #1a0f0a;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        
+        .slide-indicator {
+            color: #FFD700;
+            font-size: 1.3rem;
+            padding: 15px 25px;
+            font-weight: 700;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title { font-size: 3.5rem; }
+            .section-title { font-size: 2.5rem; }
+            .subtitle { font-size: 1.5rem; }
+            .catalog-headline { font-size: 2.5rem; }
+            .thank-you { font-size: 4rem; }
+            .value-grid, .audience-grid, .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-controls {
+                padding: 15px 20px;
+                gap: 10px;
+            }
+            .nav-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 15, 10, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFD700;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Welcome -->
+        <div class="slide slide-1 active">
+            <div class="welcome-content">
+                <div class="logo-circle">🌴</div>
+                <h1 class="main-title">واحة التمور</h1>
+                <p class="tagline">ذهب الصحراء في كل حبة</p>
+                <p class="subtitle">حملة إعلانية عالمية للتمور السعودية</p>
+                <div class="group-badge">GROUP C</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Cultural Value -->
+        <div class="slide slide-2">
+            <div class="content-wrapper">
+                <h2 class="section-title">قلب الضيافة العربية</h2>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <span class="value-icon">🏆</span>
+                        <h3 class="value-label">المنتج</h3>
+                        <p class="value-text">تمور سعودية فاخرة (الخلاص، العجوة) منتقاة بعناية من أفضل المزارع</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">🎯</span>
+                        <h3 class="value-label">المهمة</h3>
+                        <p class="value-text">تحويل رمز وطني للكرم إلى علامة تجارية فاخرة عالمية</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="value-icon">💎</span>
+                        <h3 class="value-label">القيمة</h3>
+                        <p class="value-text">التمور ليست مجرد طعام، بل هي ركيزة أساسية من الثقافة السعودية وتقاليد الضيافة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Target Audience -->
+        <div class="slide slide-3">
+            <div class="content-wrapper">
+                <h2 class="section-title">جمهورنا العالمي</h2>
+                <div class="audience-grid">
+                    <div class="audience-box">
+                        <div class="audience-icon">🌍</div>
+                        <h3 class="audience-title">السوق المستهدف</h3>
+                        <p class="audience-desc">المستهلكون المهتمون بالصحة والرفاهية في أوروبا وأمريكا الشمالية الباحثون عن منتجات عضوية فاخرة</p>
+                    </div>
+                    <div class="audience-box">
+                        <div class="audience-icon">✨</div>
+                        <h3 class="audience-title">ميزتنا التنافسية</h3>
+                        <p class="audience-desc">100% طبيعي وعضوي ومصدر متميز للطاقة النباتية</p>
+                    </div>
+                    <div class="audience-box">
+                        <div class="audience-icon">🤝</div>
+                        <h3 class="audience-title">وعدنا</h3>
+                        <p class="audience-desc">تقديم متعة أصيلة وصحية من قلب الجزيرة العربية</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Catalog Ad -->
+        <div class="slide slide-4">
+            <div class="content-wrapper">
+                <div class="catalog-container">
+                    <span class="catalog-badge">إعلان الكتالوج</span>
+                    <h2 class="catalog-headline">جوهرة الصحراء</h2>
+                    <p class="catalog-body">
+                        اكتشف الطعم الأصيل للمملكة العربية السعودية. تمورنا محصودة يدوياً من الواحات التاريخية، 100% طبيعية وعضوية. غذاء خارق غني بالألياف والتاريخ، مثالي للعميل العصري المهتم بصحته. هدية تليق بالملوك.
+                    </p>
+                    <div class="catalog-features">
+                        <div class="feature-item">
+                            <div class="icon">🌱</div>
+                            <div class="text">عضوي 100%</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">💪</div>
+                            <div class="text">طاقة طبيعية</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🏺</div>
+                            <div class="text">تراث أصيل</div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">👑</div>
+                            <div class="text">جودة فاخرة</div>
+                        </div>
+                    </div>
+                    <div class="catalog-cta">
+                        واحة التمور: تذوق الذهب
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: TV Commercial -->
+        <div class="slide slide-5">
+            <div class="content-wrapper">
+                <h2 class="section-title">من الورق إلى الشاشة</h2>
+                <p class="tv-intro">إعلان تلفزيوني مدته 15 ثانية - بسيط، قوي، وجذاب عاطفياً</p>
+                <div class="tv-frame">
+                    <div class="tv-points">
+                        <div class="tv-point">
+                            <div class="tv-point-num">01</div>
+                            <div class="tv-point-content">
+                                <h3>الهدف</h3>
+                                <p>خلق تجربة بصرية مؤثرة تنقل جودة وفخامة التمور السعودية في ثوانٍ معدودة</p>
+                            </div>
+                        </div>
+                        <div class="tv-point">
+                            <div class="tv-point-num">02</div>
+                            <div class="tv-point-content">
+                                <h3>التركيز</h3>
+                                <p>الجودة، الفخامة، ومتعة اللقمة الأولى التي لا تُنسى</p>
+                            </div>
+                        </div>
+                        <div class="tv-point">
+                            <div class="tv-point-num">03</div>
+                            <div class="tv-point-content">
+                                <h3>الأسلوب</h3>
+                                <p>يعتمد الإعلان على الأداء البصري القوي مع تعليق صوتي مميز</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Benefits -->
+        <div class="slide slide-6">
+            <div class="content-wrapper">
+                <h2 class="section-title">لماذا التمور السعودية؟</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="icon">🌟</div>
+                        <h3>جودة استثنائية</h3>
+                        <p>منتجات مختارة بعناية من أفضل المزارع السعودية</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="icon">💚</div>
+                        <h3>صحي وطبيعي</h3>
+                        <p>خالٍ من الإضافات والمواد الحافظة، طاقة نقية</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="icon">🏛️</div>
+                        <h3>تراث عريق</h3>
+                        <p>آلاف السنين من الخبرة في زراعة أجود التمور</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="icon">🎁</div>
+                        <h3>هدية مميزة</h3>
+                        <p>رمز للكرم والضيافة العربية الأصيلة</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="icon">🌍</div>
+                        <h3>مستدام</h3>
+                        <p>زراعة صديقة للبيئة تحترم الطبيعة</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="icon">⚡</div>
+                        <h3>طاقة فورية</h3>
+                        <p>مصدر سريع للطاقة الطبيعية والمغذيات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Closing -->
+        <div class="slide slide-7">
+            <div class="closing-content">
+                <h2 class="thank-you">شكراً لكم</h2>
+                <p class="closing-message">
+                    نؤمن بأنه مع الاستراتيجية الصحيحة والتركيز القوي على الجودة، يمكن للتمور السعودية أن تصبح غذاءً خارقاً فاخراً رائداً عالمياً
+                </p>
+                <div class="qa-section">
+                    <div class="qa-text">هل لديكم أسئلة؟</div>
+                    <div class="qa-subtitle">نسعد بالإجابة على استفساراتكم</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="nav-controls">
+            <button class="nav-btn" onclick="prevSlide()">→ السابق</button>
+            <div class="slide-indicator"><span id="current-slide">1</span> / 7</div>
+            <button class="nav-btn" onclick="nextSlide()">التالي ←</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            if (n > totalSlides) currentSlide = 1;
+            if (n < 1) currentSlide = totalSlides;
+            
+            slides[currentSlide - 1].classList.add('active');
+            slides[currentSlide - 1].scrollTop = 0; // Reset scroll position
+            document.getElementById('current-slide').textContent = currentSlide;
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.key === 'ArrowLeft' ? nextSlide() : prevSlide();
+            } else if (e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            }
+        });
+
+        // Touch swipe for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        showSlide(currentSlide);
+    </script>
+</body>
+</html>
